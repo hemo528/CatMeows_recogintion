@@ -51,6 +51,30 @@ catmeows/
 |   |-- 1.wav  
 |   |-- 2.wav  
 |   |-- ...  
+在控制台输入`python train.py`  
+![image](https://github.com/hemo528/CatMeows_recogintion/assets/40025914/8034fb77-cff6-4dcd-82b1-2ec835ae636e)
+
+
+
+# 使用训练好的模型进行预测  
+### 一、进入虚拟环境  
+控制台输入`conda activate catmeows`  
+![image](https://github.com/hemo528/CatMeows_recogintion/assets/40025914/7130f7dd-9dbf-4563-b3b3-28705f1eb1ee)  
+*左侧会有括号提示你已经进入虚拟环境*  
+
+### 二、选择保存的模型  
+![image](https://github.com/hemo528/CatMeows_recogintion/assets/40025914/002cb948-293f-4da5-a8dc-8d366db0172d)  
+路径改为你保存模型的路径  
+### 三、选择要分类的音频位置  
+![image](https://github.com/hemo528/CatMeows_recogintion/assets/40025914/a57fba74-fb44-4495-a99e-84a08d739a85)  
+### 四、进行分类  
+在控制台输入`python detect.py`  
+
+
+
+
+
+
 
 
 
