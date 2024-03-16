@@ -21,6 +21,14 @@
 ![image](https://github.com/hemo528/CatMeows_recogintion/assets/40025914/97d2bcac-f56a-438b-b878-acf10ff9e469)  
 #### 2.使用pip命令进行安装`pip install torch==1.8.1+cu101 torchvision==0.9.1+cu101 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html`  
 *安装需要一定时间，耐心等待*  
+#### 3.检验是否安装成功  
+在cmd输入  
+```
+python
+>>> import torch  
+>>> torch.ones(3).cuda()  
+tensor([1., 1., 1.], device='cuda:0')  
+```  
 
 
 
