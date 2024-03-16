@@ -30,6 +30,27 @@ python
 tensor([1., 1., 1.], device='cuda:0')  
 ```  
 若输出`tensor([1., 1., 1.], device='cuda:0') `则pytorch安装成功  
+##### 至此，环境部分准备完毕。  
+# 训练模型  
+
+### 一、进入虚拟环境  
+控制台输入`conda activate catmeows`  
+![image](https://github.com/hemo528/CatMeows_recogintion/assets/40025914/7130f7dd-9dbf-4563-b3b3-28705f1eb1ee)  
+*左侧会有括号提示你已经进入虚拟环境*  
+### 二、将dataset.zip解压到和train.py同目录
+文件目录如下  
+catmeows/  
+|-- dataset/  
+|   |-- B_ANI01_MC_FN_SIM01_101.wav  
+|   |-- B_ANI01_MC_FN_SIM01_102.wav  
+|   |-- B_ANI01_MC_FN_SIM01_103.wav  
+|   |-- ...  
+|-- train.py  
+|-- detect.py  
+|-- wav/  
+|   |-- 1.wav  
+|   |-- 2.wav  
+|   |-- ...  
 
 
 
