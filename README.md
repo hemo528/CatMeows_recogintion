@@ -29,6 +29,7 @@ python
 >>> torch.ones(3).cuda()  
 tensor([1., 1., 1.], device='cuda:0')  
 ```  
+若输出`tensor([1., 1., 1.], device='cuda:0') `则pytorch安装成功  
 
 
 
