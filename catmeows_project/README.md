@@ -1,19 +1,94 @@
-# 🐱 CatMeows_recogintion - 猫咪叫声情绪识别系统
+# 🐱 CatMeows_recogintion
 
-基于深度学习的猫咪叫声情绪分类系统，使用PyTorch实现神经网络模型，能够识别猫咪的不同情绪状态。
+基于深度学习的猫咪叫声情绪识别系统 - 使用PyTorch实现神经网络模型，能够准确识别猫咪的不同情绪状态。
+
+[English](README_EN.md) | 简体中文
+
+---
 
 ## 📋 项目简介
 
-CatMeows_recogintion 是一个开源的猫咪叫声情绪识别项目，通过分析猫咪叫声的MFCC音频特征，使用深度学习算法判断猫咪当前的情绪状态。项目基于米兰大学公开发布的CatMeows数据集进行训练和测试，支持三种情绪分类：**烦躁**、**饥饿**和**不安**。
+CatMeows_recogintion 是一个开源的猫咪叫声情绪识别项目，通过分析猫咪叫声的MFCC音频特征，使用深度学习算法判断猫咪当前的情绪状态。项目基于米兰大学公开发布的CatMeows数据集进行训练和测试。
 
-## ✨ 主要特性
+### 🎯 支持的情绪分类
 
-- 🔧 **模块化设计** - 清晰的代码架构，易于扩展和维护
-- 🛡️ **完整的错误处理** - 全面的异常捕获和日志记录
-- 📊 **标准化预处理** - 训练和推理使用一致的预处理流程
-- 🎯 **多种模型支持** - 支持全连接网络和1D-CNN模型
-- ⏹️ **早停机制** - 防止过拟合，节省训练时间
-- 🧪 **完整测试覆盖** - 单元测试和集成测试，代码覆盖率>80%
+- 😾 **烦躁** (Resting/Annoyed)
+- 🍽️ **饥饿** (Hungry)
+- 😿 **不安** (In distress)
+
+## ✨ 版本 1.0 新特性
+
+本次重大版本更新带来了全面的代码重构和质量提升：
+
+### 🏗️ 模块化架构
+- **配置管理模块** (`config.py`) - 集中管理所有配置参数，支持运行时修改
+- **音频处理模块** (`audio_processor.py`) - 完整的音频处理流程封装
+- **神经网络模型模块** (`model.py`) - 多种模型架构支持
+- **训练和检测脚本** - 重构后的生产级代码
+
+### 🛡️ 企业级代码质量
+- ✅ **完整的错误处理** - 全面的异常捕获和友好的错误提示
+- ✅ **详细的日志记录** - 使用Python logging模块，便于调试和监控
+- ✅ **边界条件检查** - 所有输入参数和数据都经过验证
+- ✅ **代码注释完善** - 符合Google风格的中文注释规范
+
+### 🧪 测试覆盖
+- ✅ **单元测试** - 覆盖所有核心模块
+- ✅ **集成测试** - 验证完整工作流程
+- ✅ **测试夹具** - pytest框架，代码覆盖率 >80%
+
+### ⚡ 性能优化
+- ✅ **早停机制** - 防止过拟合，节省训练时间
+- ✅ **模型保存策略** - 自动保存最佳模型和最新模型
+- ✅ **GPU支持** - 自动检测并使用GPU加速
+
+## 🚀 快速开始
+
+### 环境配置
+
+```bash
+# 创建虚拟环境（推荐）
+conda create -n catmeows python=3.9
+conda activate catmeows
+
+# 安装依赖
+pip install torch==1.8.1+cu101 torchvision==0.9.1+cu101 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+pip install -r requirements.txt
+```
+
+### 数据准备
+
+1. 下载 [CatMeows数据集](https://www.kaggle.com/datasets/mmoreiter/cat-meows-dataset)
+2. 解压 `dataset.zip` 到项目根目录
+3. 确保目录结构为 `dataset/dataset/*.wav`
+
+### 训练模型
+
+```bash
+python train_refactored.py
+```
+
+训练过程会自动：
+- 提取音频MFCC特征
+- 划分训练集和测试集（8:2）
+- 保存最佳模型到 `result/best/model_best.pth`
+- 保存标准化器和标签编码器
+
+### 使用模型预测
+
+```bash
+python detect_refactored.py
+```
+
+或使用快捷函数：
+
+```python
+from detect_refactored import predict_audio
+
+result = predict_audio('wav/2.wav')
+print(f"预测结果: {result.predicted_label}")
+print(f"置信度: {result.confidence:.2%}")
+```
 
 ## 📁 项目结构
 
@@ -25,7 +100,8 @@ CatMeows_recogintion/
 ├── train_refactored.py        # 重构后的训练脚本
 ├── detect_refactored.py       # 重构后的检测脚本
 ├── requirements.txt           # 依赖包列表
-├── CODE_WIKI.md              # 详细项目文档
+├── README.md                 # 项目说明
+├── CODE_WIKI.md             # 详细技术文档
 ├── dataset/                   # 数据集目录
 │   └── dataset/
 │       └── *.wav
@@ -43,54 +119,6 @@ CatMeows_recogintion/
     ├── test_model.py
     ├── test_train.py
     └── test_detect.py
-```
-
-## 🚀 快速开始
-
-### 环境配置
-
-```bash
-# 创建虚拟环境
-conda create -n catmeows python=3.9
-conda activate catmeows
-
-# 安装依赖
-pip install torch==1.8.1+cu101 torchvision==0.9.1+cu101 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
-pip install -r requirements.txt
-```
-
-### 数据准备
-
-1. 下载 [CatMeows数据集](https://github.com/hemo528/CatMeows_recogintion)
-2. 解压 `dataset.zip` 到项目根目录
-3. 确保目录结构为 `dataset/dataset/*.wav`
-
-### 训练模型
-
-```bash
-python train_refactored.py
-```
-
-训练过程会自动：
-- 提取音频MFCC特征
-- 划分训练集和测试集
-- 保存最佳模型到 `result/best/model_best.pth`
-- 保存标准化器和标签编码器
-
-### 预测情绪
-
-```bash
-python detect_refactored.py
-```
-
-或使用快捷函数：
-
-```python
-from detect_refactored import predict_audio
-
-result = predict_audio('wav/2.wav')
-print(f"预测结果: {result.predicted_label}")
-print(f"置信度: {result.confidence:.2%}")
 ```
 
 ## 📖 使用指南
@@ -137,21 +165,6 @@ fc_model = ModelFactory.create('fc', input_size=4000, num_classes=3)
 
 # 创建CNN模型
 cnn_model = ModelFactory.create('cnn1d', input_size=4000, num_classes=3)
-
-# 列出可用模型
-print(ModelFactory.list_models())
-```
-
-### 批量预测
-
-```python
-from detect_refactored import DetectorFactory, predict_directory
-
-# 预测目录下所有音频
-results = predict_directory('wav/', pattern='*.wav', recursive=True)
-
-for result in results:
-    print(f"{result.audio_path}: {result.predicted_label}")
 ```
 
 ## 🧪 运行测试
@@ -167,13 +180,21 @@ pytest tests/ --cov=. --cov-report=html
 pytest tests/test_model.py -v
 ```
 
+## 🔧 技术栈
+
+- **深度学习框架**: PyTorch 1.8.1
+- **音频处理**: Librosa
+- **数据处理**: NumPy, Pandas, Scikit-learn
+- **模型序列化**: Joblib
+- **测试框架**: pytest, pytest-cov
+
 ## 📊 性能指标
 
 - **准确率**: 取决于数据集规模和训练配置
 - **推理速度**: < 100ms per sample (CPU)
 - **内存占用**: ~2GB (训练), ~200MB (推理)
 
-## 🔧 扩展开发
+## 🔨 扩展开发
 
 ### 添加新模型
 
@@ -190,61 +211,20 @@ ModelFactory.register('your_model', YourModel)
 model = ModelFactory.create('your_model', input_size=4000, num_classes=3)
 ```
 
-### 添加新特征
-
-修改 `audio_processor.py` 中的特征提取方法：
-
-```python
-def extract_your_feature(self, audio, sr):
-    # 实现你的特征提取逻辑
-    return features
-```
-
-## 📝 API参考
-
-### config.py
-
-- `ConfigManager` - 配置管理器（单例模式）
-- `get_config()` - 获取全局配置
-- `get_device()` - 获取计算设备
-
-### audio_processor.py
-
-- `AudioProcessor` - 音频处理器类
-- `load_audio_processor()` - 工厂函数
-
-### model.py
-
-- `AudioClassifier` - 全连接分类器
-- `CNN1DClassifier` - 一维CNN分类器
-- `ModelFactory` - 模型工厂
-- `save_model()` - 保存模型
-- `load_model()` - 加载模型
-
-### detect_refactored.py
-
-- `Detector` - 情绪检测器
-- `DetectorFactory` - 检测器工厂
-- `PredictionResult` - 预测结果数据类
-- `predict_audio()` - 单文件预测
-- `predict_directory()` - 目录批量预测
-
-## ⚠️ 已知问题
-
-- 标准化器在推理时必须加载，否则预测结果可能不准确
-- 确保训练和推理使用相同的音频配置参数
-- 大规模数据集训练建议使用GPU加速
-
 ## 🤝 贡献指南
 
 欢迎提交Issue和Pull Request！
 
 ## 📄 许可证
 
-本项目采用MIT许可证
+本项目采用 MIT 许可证
 
 ## 📚 参考资料
 
 - [PyTorch Documentation](https://pytorch.org/docs/)
 - [Librosa Documentation](https://librosa.org/doc/)
 - [CatMeows Dataset](https://www.kaggle.com/datasets/mmoreiter/cat-meows-dataset)
+
+---
+
+⭐ 如果这个项目对您有帮助，请给我们一个星标！
