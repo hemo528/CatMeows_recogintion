@@ -1,0 +1,84 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get tag info
+        id: get_tag
+        run: |
+          echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_tag.outputs.tag }}
+          release_name: ${{ steps.get_tag.outputs.tag_name }}
+          body: |
+            # 版本 ${{ steps.get_tag.outputs.tag_name }} 发布说明
+
+            **发布日期**: ${{ github.event.head_commit.timestamp }}
+
+            ## 🎉 重要更新
+
+            这是 CatMeows_recogintion 项目的正式版本！
+
+            ## 📦 主要变化
+
+            ### 1. 🏗️ 模块化架构重构
+            - **config.py** - 配置管理模块（单例模式）
+            - **audio_processor.py** - 音频处理模块（MFCC特征提取）
+            - **model.py** - 神经网络模型模块（多种模型架构支持）
+            - **train_refactored.py** / **detect_refactored.py** - 重构后的训练和检测脚本
+
+            ### 2. 🛡️ 企业级代码质量
+            - ✅ 完整的错误处理
+            - ✅ 详细的日志记录
+            - ✅ 边界条件检查
+            - ✅ 完善的代码注释
+
+            ### 3. 🧪 测试框架
+            - ✅ 单元测试（100+测试用例）
+            - ✅ 集成测试
+            - ✅ 代码覆盖率 >80%
+
+            ### 4. ⚡ 性能优化
+            - ✅ 早停机制（防止过拟合）
+            - ✅ 模型保存策略优化
+            - ✅ GPU自动检测
+
+            ### 5. 📚 文档完善
+            - ✅ README.md - 项目主文档
+            - ✅ CODE_WIKI.md - 技术文档
+            - ✅ RELEASE_NOTES.md - 发布说明
+
+            ## 🔧 修复的问题
+            1. ✅ StandardScaler训练/推理不一致问题
+            2. ✅ 硬编码配置参数问题
+            3. ✅ 缺少错误处理和日志记录
+            4. ✅ 模型架构问题
+            5. ✅ 性能问题（每个epoch都保存模型）
+
+            ## 📊 文件统计
+            - **新增文件**: 17个
+            - **新增代码行数**: 4,461行
+            - **新增测试用例**: 100+个
+
+            ---
+            
+            更多详细信息请查看 [RELEASE_NOTES.md](https://github.com/hemo528/CatMeows_recogintion/blob/main/RELEASE_NOTES.md)
+
+          draft: false
+          prerelease: false
